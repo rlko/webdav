@@ -18,10 +18,16 @@ This project sets up a WebDAV server using Apache2 on a Docker container.
 
 ## Generating the `htpasswd` File
 
-To create a `htpasswd` file for authentication, you can use the following command:
+To create a `htpasswd` file for authentication, you need to have **htpasswd** installed on your host or you can call it from the container:
 
 ```bash
-htpasswd -c ./htpasswd username
+alias htpasswd="docker compose -f $PWD/docker-compose.yml run --rm webdav htpasswd"
+```
+
+You can now use the following command:
+
+```bash
+htpasswd -n username >> htpasswd
 ```
 
 Make sure the htpasswd file is readable by www-data inside the container. (chown or chmod)
