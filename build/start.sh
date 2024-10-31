@@ -13,13 +13,14 @@ gen_dav_vhost() {
         export AUTH_NAME="Protected Area"
     fi
 
-    envsubst '${SERVER_NAME} ${SERVER_ADMIN} ${AUTH_NAME}' < \
-    /etc/apache2/webdav.conf.template > \
-    /usr/local/apache2/conf/extra/webdav.conf
+    TEMPLATE_FILE="/etc/apache2/webdav.conf.template"
+    VHOST_CONF="/usr/local/apache2/conf/extra/webdav.conf"
+    # shellcheck disable=SC2016 
+    envsubst '${SERVER_NAME} ${SERVER_ADMIN} ${AUTH_NAME}' < $TEMPLATE_FILE  > $VHOST_CONF
 }
 
 import_htpasswd_from_env() {
-    if ! [ -z "$HTPASSWD" ]; then
+    if [ -n "$HTPASSWD" ]; then
         HTPASSWD_FILE="/etc/apache2/webdav.htpasswd"
 
         echo "$HTPASSWD" > "$HTPASSWD_FILE"
@@ -58,4 +59,4 @@ main() {
     fi
 }
 
-main ${@}
+main "${@}"

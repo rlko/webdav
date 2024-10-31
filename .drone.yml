@@ -13,4 +13,4 @@ steps:
   - name: shell-lint
     image: koalaman/shellcheck-alpine:stable
     commands:
-      - "find . -name *.sh -exec shellcheck {} +"
+      - shellcheck build/start.sh
