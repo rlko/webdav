@@ -9,3 +9,8 @@ steps:
     commands:
       - hadolint --version
       - hadolint build/Dockerfile
+
+  - name: shell-lint
+    image: koalaman/shellcheck-alpine:stable
+    commands:
+      - "find . -name *.sh -exec shellcheck {} +"
