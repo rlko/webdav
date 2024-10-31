@@ -13,8 +13,8 @@ RUN mkdir -p /usr/local/apache2/conf/extra /var/www/locks/ \
         -e 's/^#\(LoadModule ssl_module modules\/mod_ssl.so\)/\1/' \
         -e 's/^#\(LoadModule remoteip_module modules\/mod_remoteip.so\)/\1/' \
             /usr/local/apache2/conf/httpd.conf \
-    && apt update \
-    && apt install -y gettext-base \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends 'gettext-base=0.21-12' \
     && rm -rf /var/lib/apt/lists/*
 
 COPY ./webdav.conf.template /etc/apache2/webdav.conf.template
