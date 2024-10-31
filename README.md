@@ -24,6 +24,9 @@ To create a `htpasswd` file for authentication, you can use the following comman
 htpasswd -c ./htpasswd username
 ```
 
+Make sure the htpasswd file is readable by www-data inside the container. (chown or chmod)
+
+
 Or if you only need one entry you can set it up on the `HTPASSWD` environment variable:
 
 ```bash
