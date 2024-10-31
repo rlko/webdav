@@ -1,0 +1,35 @@
+Listen 4443 ssl
+
+<VirtualHost *:4443>
+    ServerName ${SERVER_NAME}
+    ServerAdmin ${SERVER_ADMIN}
+
+    SSLEngine on
+    SSLCertificateFile /etc/apache2/ssl/server.crt
+    SSLCertificateKeyFile /etc/apache2/ssl/server.key
+
+    SSLVerifyClient none
+    SSLProxyVerify none
+    RemoteIPHeader X-Forwarded-For
+
+   <Location />
+        DAV On
+        DavDepthInfinity on
+        Options +Indexes
+        AuthType Basic
+        AuthName "${AUTH_NAME}"
+        AuthUserFile /etc/apache2/webdav.htpasswd
+        Require valid-user
+        <LimitExcept GET HEAD OPTIONS POST>
+            Require valid-user
+        </LimitExcept>
+    </Location>
+
+    DocumentRoot /var/www/dav
+    <Directory /var/www/dav>
+        DavDepthInfinity on
+        Options +Indexes
+        AllowOverride None
+        Require all granted
+    </Directory>
+</VirtualHost>
