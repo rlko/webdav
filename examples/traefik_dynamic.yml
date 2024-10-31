@@ -1,0 +1,20 @@
+http:
+  serversTransports:
+    BackendSSLNoVerify:
+      insecureSkipVerify: true
+
+  routers:
+    webdav:
+      service: webdav
+      rule: Host(`webdav.example.com`)
+      entryPoints:
+        - websecure
+      tls:
+        certresolver: letsencrypt
+
+  services:
+    webdav:
+      loadBalancer:
+        serversTransport: BackendSSLNoVerify
+        servers:
+          - url: "https://webdav:4443"
