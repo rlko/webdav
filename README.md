@@ -61,6 +61,16 @@ docker run -d \
   my-apache-webdav-image
 ```
 
+## SSL Certificates
+
+By default, the server will automatically generate self-signed SSL certificates if they are not present in the designated volume paths. You can also provide your own certificate files by mounting them as volumes. To do this, ensure you have the following files available:
+
+- `server.crt`: The server's public certificate.
+- `server.key`: The private key for the certificate.
+
+Mount these files into the container at the appropriate paths for SSL configuration.
+You can check the [docker compose](docker-compose.yml) file to see the paths
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
