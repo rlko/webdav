@@ -1,0 +1,20 @@
+services:
+  webdav:
+    build: ./build
+    volumes:
+      - ./dav:/var/www/dav
+
+      # Optional
+      #- ./htpasswd:/etc/apache2/webdav.htpasswd:ro
+      #- ./ssl/server.crt:/usr/local/apache2/ssl/server.crt:ro
+      #- ./ssl/server.key:/usr/local/apache2/ssl/server.key:ro
+    networks:
+      - traefik
+    restart: unless-stopped
+    environment:
+      SERVER_NAME: ${SERVER_NAME}
+      HTPASSWD: ${HTPASSWD} # Leave unset if mounting htpasswd file
+
+networks:
+  traefik:
+    external: true
