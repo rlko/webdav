@@ -47,11 +47,15 @@ gen_ssl() {
 }
 
 main() {
-    gen_dav_vhost
-    import_htpasswd_from_env
-    gen_ssl
-
-    httpd-foreground
+    if [[ "$1" == "htpasswd" ]]; then
+        shift
+        htpasswd "$@"
+    else
+        gen_dav_vhost
+        import_htpasswd_from_env
+        gen_ssl
+        httpd-foreground
+    fi
 }
 
-main
+main ${@}
